@@ -1,0 +1,12 @@
+# Mimari notlar — sadece local referans icin, repoya gonderilmez
+ARCHITECTURE_NOTES.md
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+*.env
+
+# Yerel test dosyalari
+*.pdf

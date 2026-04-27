@@ -1,6 +1,8 @@
 #!/bin/bash
 # CV Analyzer Workshop — IAM Izin Kurulum Scripti
 
+set -e
+
 PROJECT_ID=$1
 
 if [ -z "$PROJECT_ID" ]; then
@@ -42,4 +44,6 @@ gcloud projects add-iam-policy-binding $PROJECT_ID \
   --member="serviceAccount:${PROJECT_NUMBER}@cloudbuild.gserviceaccount.com" \
   --role="roles/iam.serviceAccountUser" --quiet
 
-echo "Tum izinler basariyla verildi!"
+echo "Tum izinler verildi. IAM propagation icin 30 saniye bekleniyor..."
+sleep 30
+echo "Hazir! Deploy adimina gecebilirsiniz."
