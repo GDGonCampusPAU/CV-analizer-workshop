@@ -3,14 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="CV Analyzer — Vertex AI destekli profesyonel ozgecmis analiz aracı. CV'nizi yukleyin, is tanimi girin ve kapsamli analiz raporu alin." />
-  <title>CV Analyzer — Vertex AI</title>
+  <meta name="description" content="CV Analizci — Vertex AI destekli profesyonel özgeçmiş analiz aracı." />
+  <title>CV Analizci — Vertex AI</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --bg-primary: #0d1117;
@@ -71,7 +67,7 @@
     }
 
     main {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 40px 24px;
     }
@@ -86,8 +82,8 @@
     .page-description {
       font-size: 14px;
       color: var(--text-secondary);
-      margin-bottom: 40px;
-      max-width: 560px;
+      margin-bottom: 32px;
+      max-width: 600px;
     }
 
     .form-card {
@@ -98,26 +94,22 @@
       margin-bottom: 28px;
     }
 
+    /* Yan yana, esit yukseklikte yerlesim */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
+      align-items: stretch;
     }
 
     @media (max-width: 640px) {
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
+      .form-grid { grid-template-columns: 1fr; }
     }
 
     .form-group {
       display: flex;
       flex-direction: column;
       gap: 8px;
-    }
-
-    .form-group.full-width {
-      grid-column: 1 / -1;
     }
 
     label {
@@ -134,15 +126,22 @@
       margin-top: -4px;
     }
 
+    /* Drop zone: tam yuksekligi doldurur */
     .file-drop-zone {
+      flex: 1;
       border: 2px dashed var(--border);
       border-radius: 8px;
-      padding: 32px 20px;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       cursor: pointer;
       transition: border-color 0.2s, background-color 0.2s;
       background-color: var(--bg-tertiary);
       position: relative;
+      min-height: 220px;
     }
 
     .file-drop-zone:hover,
@@ -161,10 +160,10 @@
     }
 
     .drop-icon {
-      font-size: 28px;
-      margin-bottom: 8px;
-      display: block;
+      font-size: 32px;
+      margin-bottom: 10px;
       filter: grayscale(1);
+      display: block;
     }
 
     .drop-text {
@@ -181,11 +180,20 @@
     .file-selected {
       font-size: 13px;
       color: var(--success);
-      margin-top: 8px;
+      margin-top: 10px;
       font-weight: 500;
+      word-break: break-all;
+    }
+
+    /* Textarea: drop zone ile ayni yukseklikte */
+    .textarea-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     textarea {
+      flex: 1;
       background-color: var(--bg-tertiary);
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -195,7 +203,7 @@
       line-height: 1.6;
       padding: 12px 14px;
       resize: vertical;
-      min-height: 180px;
+      min-height: 220px;
       width: 100%;
       transition: border-color 0.2s;
     }
@@ -205,9 +213,7 @@
       border-color: var(--accent);
     }
 
-    textarea::placeholder {
-      color: var(--text-muted);
-    }
+    textarea::placeholder { color: var(--text-muted); }
 
     .char-count {
       font-size: 11px;
@@ -216,9 +222,7 @@
       margin-top: 4px;
     }
 
-    .char-count.warn {
-      color: var(--warning);
-    }
+    .char-count.warn { color: var(--warning); }
 
     .submit-area {
       margin-top: 24px;
@@ -236,26 +240,20 @@
       font-family: inherit;
       font-size: 14px;
       font-weight: 600;
-      padding: 10px 24px;
+      padding: 10px 28px;
       transition: background-color 0.2s, opacity 0.2s;
       min-width: 160px;
     }
 
-    button[type="submit"]:hover:not(:disabled) {
-      background-color: var(--accent-hover);
-    }
-
-    button[type="submit"]:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+    button[type="submit"]:hover:not(:disabled) { background-color: var(--accent-hover); }
+    button[type="submit"]:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .submit-note {
       font-size: 12px;
       color: var(--text-muted);
     }
 
-    /* Result card */
+    /* Sonuc karti */
     .result-card {
       display: none;
       background-color: var(--bg-secondary);
@@ -264,9 +262,7 @@
       overflow: hidden;
     }
 
-    .result-card.visible {
-      display: block;
-    }
+    .result-card.visible { display: block; }
 
     .result-header {
       border-bottom: 1px solid var(--border);
@@ -307,7 +303,6 @@
       color: var(--text-primary);
     }
 
-    /* Loading state */
     .loading-indicator {
       display: none;
       align-items: center;
@@ -316,9 +311,7 @@
       color: var(--text-secondary);
     }
 
-    .loading-indicator.visible {
-      display: flex;
-    }
+    .loading-indicator.visible { display: flex; }
 
     .spinner {
       width: 16px;
@@ -329,9 +322,7 @@
       animation: spin 0.8s linear infinite;
     }
 
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     footer {
       text-align: center;
@@ -340,67 +331,67 @@
       color: var(--text-muted);
     }
 
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <header>
     <div class="header-logo">CV</div>
-    <span class="header-title">CV Analyzer</span>
-    <span class="header-subtitle">Powered by Vertex AI — Gemini 2.5 Flash</span>
+    <span class="header-title">CV Analizci</span>
+    <span class="header-subtitle">Vertex AI — Gemini 2.5 Flash</span>
   </header>
 
   <main>
-    <h1 class="page-title">CV Analysis</h1>
+    <h1 class="page-title">CV Analizi</h1>
     <p class="page-description">
-      Upload your CV as a PDF and provide the job description for the position you are applying to.
-      The system will analyze your CV against the role and produce a structured professional report.
+      CV'nizi PDF olarak yükleyin ve başvuracağınız pozisyonun iş tanımını girin.
+      Sistem, CV'nizi iş tanımıyla karşılaştırarak Türkçe profesyonel bir analiz raporu üretir.
     </p>
 
     <div class="form-card">
       <form id="analyzeForm">
         <div class="form-grid">
+
+          <!-- CV Yükleme -->
           <div class="form-group">
-            <label for="cv_file">CV Document</label>
-            <p class="field-description">PDF format only. Maximum file size: 10 MB.</p>
+            <label for="cv_file">CV Dosyası</label>
+            <p class="field-description">Yalnızca PDF formatı. Maksimum 10 MB.</p>
             <div class="file-drop-zone" id="dropZone">
               <input type="file" id="cv_file" name="cv_file" accept=".pdf" required />
               <span class="drop-icon">📄</span>
-              <p class="drop-text">Click to select or drag and drop</p>
-              <p class="drop-hint">PDF files only</p>
+              <p class="drop-text">Tıklayın veya sürükleyip bırakın</p>
+              <p class="drop-hint">Yalnızca PDF</p>
+              <div class="file-selected" id="fileSelected" style="display:none;"></div>
             </div>
-            <div class="file-selected" id="fileSelected" style="display:none;"></div>
           </div>
 
+          <!-- İş Tanımı -->
           <div class="form-group">
-            <label for="job_description">Job Description</label>
-            <p class="field-description">Paste the job posting text or write the role requirements. Maximum 5000 characters.</p>
-            <textarea
-              id="job_description"
-              name="job_description"
-              placeholder="Enter the job title, required qualifications, responsibilities, and technical skills listed in the job posting."
-              maxlength="5000"
-              required
-            ></textarea>
-            <div class="char-count" id="charCount">0 / 5000</div>
+            <label for="job_description">İş Tanımı</label>
+            <p class="field-description">İş ilanı metnini yapıştırın. Maksimum 5000 karakter.</p>
+            <div class="textarea-wrapper">
+              <textarea
+                id="job_description"
+                name="job_description"
+                placeholder="Pozisyon başlığını, gereksinimleri ve sorumlulukları buraya yapıştırın."
+                maxlength="5000"
+                required
+              ></textarea>
+              <div class="char-count" id="charCount">0 / 5000</div>
+            </div>
           </div>
+
         </div>
 
         <div class="submit-area">
-          <button type="submit" id="submitBtn">Analyze CV</button>
+          <button type="submit" id="submitBtn">CV Analiz Et</button>
           <div class="loading-indicator" id="loadingIndicator">
             <div class="spinner"></div>
-            <span>Analyzing — this may take 15–30 seconds</span>
+            <span>Analiz ediliyor — 15–30 saniye sürebilir</span>
           </div>
           <span class="submit-note" id="submitNote">
-            Analysis is performed entirely within your GCP project.
+            Verileriniz yalnızca kendi GCP projeniz içinde işlenir.
           </span>
         </div>
       </form>
@@ -408,17 +399,16 @@
 
     <div class="result-card" id="resultCard">
       <div class="result-header">
-        <span class="result-header-title">Analysis Report</span>
-        <span class="result-badge" id="resultBadge">Complete</span>
+        <span class="result-header-title">Analiz Raporu</span>
+        <span class="result-badge" id="resultBadge">Tamamlandı</span>
       </div>
       <div class="result-body" id="resultBody"></div>
     </div>
   </main>
 
   <footer>
-    Built with <a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Vertex AI</a> and
-    <a href="https://cloud.google.com/run" target="_blank" rel="noopener">Cloud Run</a>.
-    This application processes your data within your own Google Cloud project.
+    <a href="https://cloud.google.com/vertex-ai" target="_blank" rel="noopener">Vertex AI</a> ve
+    <a href="https://cloud.google.com/run" target="_blank" rel="noopener">Cloud Run</a> ile geliştirildi.
   </footer>
 
   <script>
@@ -435,38 +425,33 @@
     const charCount = document.getElementById("charCount");
     const dropZone = document.getElementById("dropZone");
 
-    // File selection display
     fileInput.addEventListener("change", () => {
       if (fileInput.files.length > 0) {
-        const name = fileInput.files[0].name;
-        fileSelected.textContent = name;
+        fileSelected.textContent = fileInput.files[0].name;
         fileSelected.style.display = "block";
       } else {
         fileSelected.style.display = "none";
       }
     });
 
-    // Drag-and-drop styling
     dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("dragging"); });
     dropZone.addEventListener("dragleave", () => dropZone.classList.remove("dragging"));
     dropZone.addEventListener("drop", () => dropZone.classList.remove("dragging"));
 
-    // Character counter
     jobDesc.addEventListener("input", () => {
       const len = jobDesc.value.length;
       charCount.textContent = `${len} / 5000`;
       charCount.classList.toggle("warn", len > 4500);
     });
 
-    // Form submit
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const file = fileInput.files[0];
       const desc = jobDesc.value.trim();
 
-      if (!file) { showError("Please select a PDF file to upload."); return; }
-      if (!desc)  { showError("Please enter the job description."); return; }
+      if (!file) { showError("Lütfen bir PDF dosyası seçin."); return; }
+      if (!desc) { showError("Lütfen iş tanımını girin."); return; }
 
       setLoading(true);
 
@@ -479,12 +464,12 @@
         const data = await response.json();
 
         if (!response.ok || data.error) {
-          showError(data.error || "An unexpected error occurred. Please try again.");
+          showError(data.error || "Beklenmeyen bir hata oluştu. Lütfen tekrar deneyin.");
         } else {
           showResult(data.result);
         }
       } catch (err) {
-        showError("A network error occurred. Please check your connection and try again.");
+        showError("Ağ hatası oluştu. Bağlantınızı kontrol edip tekrar deneyin.");
       } finally {
         setLoading(false);
       }
@@ -492,7 +477,7 @@
 
     function setLoading(on) {
       submitBtn.disabled = on;
-      submitBtn.textContent = on ? "Analyzing..." : "Analyze CV";
+      submitBtn.textContent = on ? "Analiz ediliyor..." : "CV Analiz Et";
       loadingIndicator.classList.toggle("visible", on);
       submitNote.style.display = on ? "none" : "";
     }
@@ -500,7 +485,7 @@
     function showResult(text) {
       resultCard.classList.add("visible");
       resultBody.textContent = text;
-      resultBadge.textContent = "Complete";
+      resultBadge.textContent = "Tamamlandı";
       resultBadge.className = "result-badge";
       resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
     }
@@ -508,7 +493,7 @@
     function showError(msg) {
       resultCard.classList.add("visible");
       resultBody.textContent = msg;
-      resultBadge.textContent = "Error";
+      resultBadge.textContent = "Hata";
       resultBadge.className = "result-badge error-badge";
       resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
     }
