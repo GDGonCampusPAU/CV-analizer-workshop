@@ -109,18 +109,15 @@ Proje ID'nizi gormelisiniz. Bos geliyorsa proje secmeden devam etmissiniz demekt
 
 ### Gerekli izinleri verin
 
-Once script dosyasini indirin:
+Repo Cloud Shell acildiginda otomatik olarak klonlaniyor. Script dosyasi hazir bekliyor:
 
 ```sh
-export BASE="https://raw.githubusercontent.com"
-export REPO="GDGonCampusPAU/CV-analizer-workshop/refs/heads/main"
-curl -o setup-iam.sh "$BASE/$REPO/setup-iam.sh"
+export REPO_DIR=$(find ~ -name "CV-analizer-workshop" -type d 2>/dev/null | head -1)
+echo "Repo klasoru: $REPO_DIR"
 ```
 
-Sonra calistirin:
-
 ```sh
-bash setup-iam.sh $PROJECT_ID
+bash $REPO_DIR/setup-iam.sh $PROJECT_ID
 ```
 
 Script ne yapar:
@@ -301,20 +298,16 @@ Simdi uygulamayi internete aciyoruz!
 
 ### Deploy komutunu calistirin
 
-Once deploy scriptini indirin:
-
-```sh
-curl -o deploy.sh "$BASE/$REPO/deploy.sh"
-```
-
-Sonra cv-analyzer-app klasorune gidip scripti calistirin:
+cv-analyzer-app klasorune gidin:
 
 ```sh
 cd $APP_DIR
 ```
 
+Deploy scriptini calistirin:
+
 ```sh
-bash ../deploy.sh $PROJECT_ID
+bash $REPO_DIR/deploy.sh $PROJECT_ID
 ```
 
 Ilk seferde "Do you want to continue (Y/n)?" sorusu gelecek — **Y** yazip Enter'a basin.
