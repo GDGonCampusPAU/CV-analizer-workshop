@@ -6,7 +6,6 @@ Vertex AI ve Gemini destekli, CV'yi is tanimi ile karsilastiran profesyonel bir 
 
 [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://shell.cloud.google.com/cloudshell/open?git_repo=https://github.com/GDGonCampusPAU/CV-analizer-workshop&tutorial=tutorial.md&cloudshell_git_branch=main)
 
-> **Not:** Butonun calismasi icin bu repoyu GitHub'a push ettikten sonra `YOUR_GITHUB_USERNAME` kismini kendi kullanici adinizla degistirin.
 
 ### Hesap sorunu yasiyorsaniz:
 
@@ -17,13 +16,13 @@ git clone https://github.com/GDGonCampusPAU/CV-analizer-workshop.git
 ```
 
 ```bash
-cloudshell launch-tutorial ~/cv-analyzer-workshop/tutorial.md
+cloudshell launch-tutorial ~/CV-analizer-workshop/tutorial.md
 ```
 
 Already Exists Hatasi Aliyorsaniz:
 
 ```bash
-rm -rf ~/cv-analyzer-workshop && git clone https://github.com/GDGonCampusPAU/CV-analizer-workshop.git && cloudshell launch-tutorial ~/cv-analyzer-workshop/tutorial.md
+rm -rf ~/CV-analizer-workshop && git clone https://github.com/GDGonCampusPAU/CV-analizer-workshop.git && cloudshell launch-tutorial ~/CV-analizer-workshop/tutorial.md
 ```
 
 ---
