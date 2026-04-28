@@ -188,7 +188,20 @@ Deploy ettiğiniz servisi görsel arayüzden incelemek için:
 
 ## Temizlik
 
-Workshop tamamlandıktan sonra gereksiz maliyet oluşmaması için kaynakları silin.
+Workshop tamamlandıktan sonra önce harcama raporunu inceleyin, ardından kaynakları temizleyin.
+
+### Billing Raporunu İnceleyin
+
+[console.cloud.google.com/billing](https://console.cloud.google.com/billing) adresine gidin → Sol menüden **Reports** sekmesini açın.
+
+Hizmet bazında harcama dağılımını göreceksiniz:
+- **Vertex AI** — Her Gemini çağrısı token başına ücretlendiriliyor (~$0.001-0.01 / analiz)
+- **Cloud Run** — Yalnızca istek geldiğinde ücret oluşuyor (serverless)
+- **Cloud Build & Artifact Registry** — Image build ve depolama
+
+Projenin toplam maliyetinin $0.05 - $0.30 arasında olması beklenir. Harcamalar anlık yansımayabilir, birkaç saat gecikebilir.
+
+### Kaynakları Silin
 
 Cloud Run servisini silin:
 
@@ -207,8 +220,6 @@ Projenin tamamını silmek isterseniz:
 ```sh
 gcloud projects delete $PROJECT_ID
 ```
-
-Harcama raporunu görmek için: [console.cloud.google.com/billing](https://console.cloud.google.com/billing) → **Reports**
 
 ## Tebrikler!
 
